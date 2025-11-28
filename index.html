@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог о технологиях</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+    <h1>Блог о технологиях</h1>
+    <p>Современные тренды, обзоры и мысли о будущем цифрового мира</p>
+    <button id="theme-toggle">Переключить тему</button>
+</header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Статьи</a></li>
+            <li><a href="#">Обо мне</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Использование искусственного интеллекта в веб-разработке</h2>
+            <p>ИИ помогает создавать шаблоны сайтов, улучшать дизайн и автоматизировать написание кода. 
+               Благодаря большим языковым моделям можно генерировать HTML, CSS и даже JavaScript, экономя время разработчиков.</p>
+        </article>
+
+        <article>
+            <h2>Как CSS Grid изменил подход к вёрстке</h2>
+            <p>Grid-сетка позволила создавать адаптивные и симметричные макеты без лишних ухищрений. 
+               Теперь создание блога или портфолио стало проще и логичнее — всё благодаря мощным инструментам CSS.</p>
+        </article>
+
+        <aside>
+            <h3>Популярные темы</h3>
+            <ul>
+                <li>Искусственный интеллект</li>
+                <li>Фронтенд</li>
+                <li>UX-дизайн</li>
+                <li>Программирование</li>
+            </ul>
+        </aside>
+        <section id="reviews-section">
+    <h2>Отзывы клиентов</h2>
+    
+    <button id="prev-review">←</button>
+    <button id="next-review">→</button>
+    <div id="reviews">
+    <p id="review1">Отзыв загружается...</p>
+    <p id="review2">Отзыв загружается...</p>
+    <p id="review3">Отзыв загружается...</p>
+</div>
+</section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Блог о технологиях </p>
+    </footer>
+
+    <!-- АККОРДЕОН — обновлённые тексты -->
+    <div class="accordion-item">
+        <h3 class="accordion-title">Будущее искусственного интеллекта</h3>
+        <div class="accordion-content">
+            Развитие искусственного интеллекта стремительно набирает обороты: модели становятся более умными, быстрыми и доступными.
+Уже сегодня нейросети оказывают значительную помощь в программировании, медицине, образовании и творческих сферах.
+В ближайшие годы ожидается, что ИИ будет встроен практически во все цифровые сервисы.
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h3 class="accordion-title">Тенденции веб-разработки</h3>
+        <div class="accordion-content">
+            WebAssembly, микрофронтенды, AI-инструменты и серверные компоненты формируют новый формат разработки веб-приложений.
+Разработчики всё активнее переходят на более быстрые и удобные фреймворки.
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h3 class="accordion-title">Кибербезопасность в 2025 году</h3>
+        <div class="accordion-content">
+            Увеличение числа кибератак требует более устойчивых методов защиты.
+Современные системы применяют ИИ для выявления угроз в режиме реального времени,
+а пользователи постепенно начинают внимательнее относиться к безопасности своих данных.
+        </div>
+    </div>
+
+    <!-- ФИЛЬТРЫ -->
+<div class="filters">
+    <button data-category="all">Все фото</button>
+    <button data-category="nature">Природа</button>
+    <button data-category="city">Город</button>
+</div>
+
+    <!-- ГАЛЕРЕЯ -->
+    <div class="gallery">
+        <img src="img1.jpg" data-category="city">
+        <img src="img2.jpg" data-category="nature">
+        <img src="img3.jpg" data-category="city">
+        <img src="img4.jpg" data-category="nature">
+    </div>
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+    <!-- КНОПКА НАВЕРХ -->
+    <button id="scrollTopBtn" class="scroll-btn">↑</button>
+<div class="random-gallery"></div>
+<script src="script.js"></script>
+</body>
+</html>
