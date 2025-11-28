@@ -90,21 +90,51 @@ document.getElementById('next-review').addEventListener('click', () => {
     currentReviewIndex = (currentReviewIndex + 1) % reviewIds.length;
     showReview(currentReviewIndex);
 });
+// Функция загрузки одного отзыва
 async function loadReview(id) {
     const el = document.getElementById(id);
     if (!el) return;
 
     try {
         el.textContent = "Загрузка...";
-        const res = await fetch('https://api.quotable.io/random');
-        if (!res.ok) throw new Error('Ошибка сервера');
+
+        const res = await fetch("https://api.quotable.io/random");
+
+        if (!res.ok) {
+            throw new Error("Ошибка загрузки");
+        }
+
         const data = await res.json();
-        el.textContent = data.content; // реальная цитата
-    } catch (error) {
-        el.textContent = "Ошибка загрузки";
-        console.error('Ошибка при получении цитаты:', error);
+        el.textContent = data.content; // цитата
+    } catch (err) {
+        el.textContent = "Ошибка загрузки данных";
     }
 }
 
-// Загружаем все отзывы
-['review1', 'review2', 'review3'].forEach(loadReview);
+// Загрузка всех отзывов при старте страницы
+loadReview("rev1");
+loadReview("rev2");
+loadReview("rev3");
+
+// ------ КАРУСЕЛЬ ------
+const track = document.querySelector(".carousel-track");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+let index = 0;
+const total = 3;
+
+function updateCarousel() {
+    const offset = -index * 300;
+   track.style.transform = 'translateX(${offset}px)';
+}
+
+nextBtn.addEventListener("click", () => {
+    index = (index + 1) % total;
+    updateCarousel();
+});
+
+prevBtn.addEventListener("click", () => {
+    index = (index - 1 + total) % total;
+    updateCarousel();
+});
