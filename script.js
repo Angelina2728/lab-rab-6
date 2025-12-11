@@ -20,7 +20,7 @@ accordionItems.forEach(item => {
     });
 });
 
-// ==================== ФИЛЬТРЫ ФОТОГРАФИЙ ====================
+// ==================== ФИЛЬТРЫ ФОТО ====================
 const filterBtns = document.querySelectorAll('.filters button');
 const galleryImgs = document.querySelectorAll('.gallery img');
 
@@ -28,11 +28,7 @@ filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const category = btn.dataset.category;
         galleryImgs.forEach(img => {
-            if (category === 'all' || img.dataset.category === category) {
-                img.classList.remove('hidden');
-            } else {
-                img.classList.add('hidden');
-            }
+            img.classList.toggle('hidden', category !== 'all' && img.dataset.category !== category);
         });
     });
 });
@@ -63,34 +59,31 @@ themeToggleBtn.addEventListener('click', () => {
     localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
 });
 
+// ==================== РАНДОМНАЯ ГАЛЕРЕЯ ====================
 const randomGallery = document.querySelector('.random-gallery');
 
 if (randomGallery) {
     for (let i = 0; i < 6; i++) {
         const img = document.createElement('img');
-        img.src = 'https://picsum.photos/300/200?random=${Math.floor(Math.random() * 1000)}';
+        img.src = `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 1000)}`;
         img.alt = 'Рандомное фото';
         randomGallery.appendChild(img);
     }
 }
+
+// ==================== ОТЗЫВЫ ====================
+const reviewIds = ["rev1", "rev2", "rev3"];
+let currentReviewIndex = 0;
+
 function showReview(index) {
     reviewIds.forEach((id, i) => {
         const el = document.getElementById(id);
-        if (i === index) el.classList.add('active');
-        else el.classList.remove('active');
+        el.classList.toggle("active", i === index);
     });
 }
 
-document.getElementById('prev-review').addEventListener('click', () => {
-    currentReviewIndex = (currentReviewIndex - 1 + reviewIds.length) % reviewIds.length;
-    showReview(currentReviewIndex);
-});
-
-document.getElementById('next-review').addEventListener('click', () => {
-    currentReviewIndex = (currentReviewIndex + 1) % reviewIds.length;
-    showReview(currentReviewIndex);
-});
-// Функция загрузки одного отзыва
+// ЗАГРУЗКА ОТЗЫВОВ
+// ====== ЗАГРУЗКА ОТЗЫВОВ ======
 async function loadReview(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -98,25 +91,27 @@ async function loadReview(id) {
     try {
         el.textContent = "Загрузка...";
 
-        const res = await fetch("https://api.quotable.io/random");
-
-        if (!res.ok) {
-            throw new Error("Ошибка загрузки");
-        }
+        const res = await fetch("https://dummyjson.com/quotes/random");
+        if (!res.ok) throw new Error("Ошибка загрузки");
 
         const data = await res.json();
-        el.textContent = data.content; // цитата
-    } catch (err) {
+        // В DummyJSON цитата лежит в поле quote
+        el.textContent = data.quote;
+    } catch {
         el.textContent = "Ошибка загрузки данных";
     }
 }
 
-// Загрузка всех отзывов при старте страницы
+// Загрузка всех отзывов
+reviewIds.forEach(id => loadReview(id));
+
+
 loadReview("rev1");
 loadReview("rev2");
 loadReview("rev3");
+showReview(0);
 
-// ------ КАРУСЕЛЬ ------
+// ==================== КАРУСЕЛЬ ОТЗЫВОВ ====================
 const track = document.querySelector(".carousel-track");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
@@ -126,7 +121,7 @@ const total = 3;
 
 function updateCarousel() {
     const offset = -index * 300;
-   track.style.transform = 'translateX(${offset}px)';
+    track.style.transform = `translateX(${offset}px)`;
 }
 
 nextBtn.addEventListener("click", () => {
@@ -138,3 +133,5 @@ prevBtn.addEventListener("click", () => {
     index = (index - 1 + total) % total;
     updateCarousel();
 });
+
+
